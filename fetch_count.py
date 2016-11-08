@@ -11,7 +11,14 @@ import csv
 
 work_path="work/"
 
+def apiKey():
+	f = open('.apikey')
+	key = f.read()
+	f.close()
+	return key.strip()
+
 def fetch(start, end):
+	key = apiKey()
 	url = "http://redmine.uzabase.lan/redmine/issues.xml?project_id=79&key=42244093aaf2bc2b638592cf75ff79a65b6b6ffa&created_on=%3E%3C" + start + "|" + end + "&limit=1"
 	print(url)
 	with urllib.request.urlopen(url) as res:
