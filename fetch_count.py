@@ -18,9 +18,12 @@ def apiKey():
 	return key.strip()
 
 def fetch(start, end):
-	key = apiKey()
-	url = "http://redmine.uzabase.lan/redmine/issues.xml?project_id=79&key=42244093aaf2bc2b638592cf75ff79a65b6b6ffa&created_on=%3E%3C" + start + "|" + end + "&limit=1"
-	print(url)
+	url = "http://redmine.uzabase.lan/redmine/issues.xml?limit=1" \
+		+ "&project_id=%s" % 79 \
+		+ "&key=%s" % apiKey() \
+		+ "&created_on=%s" % "%3E%3C" \
+		+ "%s" % start + "|%s" % end
+
 	with urllib.request.urlopen(url) as res:
 		html = res.read().decode("utf-8")
 		f = open(fileName(start, end), 'w')
